@@ -14,14 +14,37 @@ const queries =  {
             id
         }
     }`,
+    
+        /* auguments with GQL datatypes*/
+       
     addBookMutation : gql`
-        mutation{
-            addBook(name:"",genre:"",id:""){
+        mutation($name:String!, $genre :String!, $authorId:ID!){
+            addBook(name:$name,genre:$genre,authorId:$authorId){ 
                 name
                 id
             }
-        }
-    `
+        }`,
+
+        getBookQuery : gql`
+            query($bookId:String!){
+                book(id:$bookId){
+                    name
+                    genre
+                    id
+                    author{
+                        name
+                        age
+                        id
+                        books{
+                            name
+                            id
+                        }
+                    }
+                }
+
+            }
+        `
+    
 };
 
 export {queries};
